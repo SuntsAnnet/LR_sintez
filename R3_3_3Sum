@@ -1,0 +1,23 @@
+'''
+https://leetcode.com/problems/3sum/submissions/858312731/
+'''
+
+class Solution:
+    def threeSum(self, a: List[int]) -> List[List[int]]:
+        ts = 0
+        a.sort()
+        res = []
+        for i in range(len(a)-2):
+            l = i+1
+            r = len(a)-1
+            while l < r:
+                c = a[l]+a[r]+a[i]
+                if c == ts:
+                    res.append([a[i],a[l],a[r]])
+                    l+=1
+                    r-=1
+                elif c < ts:
+                    l+=1
+                elif c > ts:
+                    r-=1
+        return set(tuple(row) for row in res)
