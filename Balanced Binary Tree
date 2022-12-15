@@ -1,0 +1,28 @@
+"""
+Balanced Binary Tree
+https://leetcode.com/problems/balanced-binary-tree/
+"""
+class TreeInfo:
+    def __init__(self,isBalanced,height):
+        self.isBalanced =isBalanced
+        self.height = height
+
+class Solution:
+    def getTreeInfo(self,root):
+        if root is None:
+            return TreeInfo(True,0)
+        leftsubtree = self.getTreeInfo(root.left)
+        rightsubtree = self.getTreeInfo(root.right) 
+        
+        isBalanced = (
+            leftsubtree.isBalanced and
+            rightsubtree.isBalanced and
+            abs(leftsubtree.height - rightsubtree.height) <=1
+        )
+        height = max(leftsubtree.height , rightsubtree.height) + 1
+        return TreeInfo(isBalanced,height)
+    
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        treeInfo = self.getTreeInfo(root)
+        return treeInfo.isBalanced
+        
